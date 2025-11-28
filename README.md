@@ -114,3 +114,63 @@ Sample Output:
 ...
 ```
 
+# Question 4: Reconstruct Directories
+Write a function `reconstruct_dir` that:
+- Parses the paths into a nested list structure where:
+    - Directories are represented as lists, with the directory name as the first element.
+    - Files are represented as strings.
+- Returns the nested list structure.
+
+## Input:
+- The input to the function is a list of strings, where each string represents a file path in the file system.
+- Each file path follows a format like: `/home/user/docs/file1.txt`, where directories and files are separated by a forward slash (`/`).
+
+- The paths can be nested, meaning there may be directories inside directories, and these paths may or may not contain files.
+
+## Sample Input:
+```python
+paths = [
+    "/home/user/docs/file1.txt",
+    "/home/user/docs/file2.txt",
+    "/home/user/videos/ibiza_trip.mp4",
+    "/home/user/videos/christmas_party.mp4",
+    "/home/user/videos/movies/isle_of_dogs.mp4",
+    "/home/user/videos/movies/la_haine.mp4",
+    "/home/user/downloads",
+    "/home/system/system32",
+    "/home/system/config.ini",
+    "/dev/input/mouse",
+    "/dev/input/gamepad/ps5_controller_conf.ini",
+]
+```
+## Output:
+The function returns a nested list structure, where:
+- Each directory is represented as a list, where the first element is the directory name.
+- Subdirectories are nested inside their parent directory's list.
+- Files are represented as simple strings inside the respective directory list.
+- If a directory has no files, it is represented by an empty list `[]`.
+- Each directory in the tree is represented by its name as the first element, followed by its contents (files or subdirectories) as nested lists.
+- Expected output:
+```python
+[
+    'home', [
+        'user', [
+            'docs', ['file1.txt', 'file2.txt'], 
+            'videos', [
+                'ibiza_trip.mp4', 'christmas_party.mp4', 
+                'movies', ['isle_of_dogs.mp4', 'la_haine.mp4']
+                      ], 
+            'downloads', []
+                ], 
+        'system', ['system32', [], 'config.ini']
+            ], 
+    'dev', [
+        'input', ['mouse', [], 'gamepad', ['ps5_controller_conf.ini']]
+        ]
+]
+```
+## Notes for Edge Cases:
+- Empty Directories: If a directory is mentioned but has no files, an empty list is added.
+- Nested Directories: The function handles multiple levels of nested directories.
+- Top-Level Directories: The function can handle paths that start from different top-level directories (e.g., /home and /dev).
+
